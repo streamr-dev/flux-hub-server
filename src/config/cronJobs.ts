@@ -10,18 +10,9 @@ export const cronJobs = [
     refineFunc: filterStreamrNodes,
   },
   {
-    url: 'https://api.runonflux.io/flux/info',
-    schedule: '*/5 * * * *', // Every 5 minutes
-    streamId: '',
-  },
-  {
     url: 'https://api.runonflux.io/apps/fluxusage',
-    schedule: '0 */2 * * *', // Every 2 hours
-    streamId: '',
-  },
-  {
-    url: 'https://api.runonflux.io/apps/appsresources',
     schedule: '*/1 * * * *', // Every 1 minute
-    streamId: '',
+    streamId:
+      '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/resources-available',
   },
 ];
