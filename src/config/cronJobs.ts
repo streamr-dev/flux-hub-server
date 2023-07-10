@@ -1,5 +1,7 @@
 import {
+  extractDashboardData,
   extractLockedUpSupply,
+  extractNodeData,
   extractSupplyData,
   extractTitanNodeCount,
   extractUsageData,
@@ -46,5 +48,21 @@ export const cronJobs = [
     streamId:
       '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/total-locked-up-supply-titan-nodes',
     refineFunc: extractLockedUpSupply,
+  },
+  {
+    // The Flux Cloud Usage, in Application Instances, Total Deployments, and Unique Applications
+    url: 'https://usagestats.runonflux.io/dashboard',
+    schedule: '*/1 * * * *', // Every 1 minute
+    streamId:
+      '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/flux-cloud-usage',
+    refineFunc: extractDashboardData,
+  },
+  {
+    // The Flux Cloud back bone infrastructure, in total FluxNodes and its different tiers
+    url: 'https://usagestats.runonflux.io/dashboard',
+    schedule: '*/1 * * * *', // Every 1 minute
+    streamId:
+      '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/infrastructure',
+    refineFunc: extractNodeData,
   },
 ];

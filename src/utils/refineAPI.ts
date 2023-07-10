@@ -66,3 +66,48 @@ export const extractLockedUpSupply = (
 ): { lockedUpSupply: number } => {
   return { lockedUpSupply: apiData.total };
 };
+
+interface Nodes {
+  cumulus: number;
+  nimbus: number;
+  stratus: number;
+  fractus: number;
+  total: number;
+}
+
+interface DashboardStats {
+  status: string;
+  data: {
+    nodes: Nodes;
+    cpu: number;
+    cpu30Day: number;
+    cpuTotal: number;
+    ram: number;
+    ram30Day: number;
+    ramTotal: number;
+    hdd: number;
+    hdd30Day: number;
+    hddTotal: number;
+    ssdTotal: number;
+    appInstances: number;
+    appCount: number;
+    uniqueAppCount: number;
+    countries: number;
+    continents: number;
+    orgs: number;
+  };
+}
+
+export const extractDashboardData = (
+  apiData: DashboardStats
+): { appInstances: number; appCount: number; uniqueAppCount: number } => {
+  return {
+    appInstances: apiData.data.appInstances,
+    appCount: apiData.data.appCount,
+    uniqueAppCount: apiData.data.uniqueAppCount,
+  };
+};
+
+export const extractNodeData = (apiData: DashboardStats): Nodes => {
+  return apiData.data.nodes;
+};
