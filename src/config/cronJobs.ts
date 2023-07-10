@@ -1,4 +1,10 @@
-import { filterStreamrNodes } from '../utils/refineAPI';
+import {
+  extractLockedUpSupply,
+  extractSupplyData,
+  extractTitanNodeCount,
+  extractUsageData,
+  filterStreamrNodes,
+} from '../utils/refineAPI';
 
 export const cronJobs = [
   {
@@ -10,9 +16,35 @@ export const cronJobs = [
     refineFunc: filterStreamrNodes,
   },
   {
+    // ressources on flux available
     url: 'https://api.runonflux.io/apps/fluxusage',
     schedule: '*/1 * * * *', // Every 1 minute
     streamId:
       '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/resources-available',
+    refineFunc: extractUsageData,
+  },
+  {
+    // circulating token supply of flux
+    url: 'https://explorer.runonflux.io/api/statistics/circulating-supply',
+    schedule: '*/1 * * * *', // Every 1 minute
+    streamId:
+      '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/circulating-supply',
+    refineFunc: extractSupplyData,
+  },
+  {
+    // titan nodes
+    url: 'https://titan.runonflux.io/nodes',
+    schedule: '*/1 * * * *', // Every 1 minute
+    streamId:
+      '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/total-titan-nodes',
+    refineFunc: extractTitanNodeCount,
+  },
+  {
+    // locked up supply
+    url: 'https://titan.runonflux.io/stats',
+    schedule: '*/1 * * * *', // Every 1 minute
+    streamId:
+      '0xd4081fcd7b3d4006515f9daf7c7b6cc13935df12/runonflux.io/total-locked-up-supply-titan-nodes',
+    refineFunc: extractLockedUpSupply,
   },
 ];

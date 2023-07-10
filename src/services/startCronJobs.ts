@@ -14,8 +14,6 @@ export const startCronJobs = () => {
     cron.schedule(schedule, async () => {
       try {
         const response = await axios.get(url);
-        console.log('API response received');
-
         const data = refineFunc ? refineFunc(response.data) : response.data;
         await streamr.publish(streamId, data);
         console.log(`${data} published to streamId ${streamId}`);
